@@ -9,19 +9,26 @@ if (isset($_POST['register'])) {
     $sql = "INSERT INTO students (student_id, name, password) VALUES (?, ?, ?)";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("sss", $student_id, $name, $password);
-
-    if ($stmt->execute()) {
-        header("Location: login.php");
-        exit();
-    } else {
-        echo "Registration failed!";
-    }
+    $stmt->execute();
 }
 ?>
 
-<form method="POST">
-    Student ID: <input type="text" name="student_id" required><br><br>
-    Name: <input type="text" name="name" required><br><br>
-    Password: <input type="password" name="password" required><br><br>
-    <button name="register">Register</button>
-</form>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <h2>Student Registration</h2>
+    <form method="POST">
+        <input type="text" name="student_id" placeholder="Student ID" required>
+        <input type="text" name="name" placeholder="Name" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <button name="register">Register</button>
+    </form>
+    <a href="login.php">Already registered? Login</a>
+</div>
+</body>
+</html>
